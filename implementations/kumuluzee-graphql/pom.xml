@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kumuluz.ee.federation.compatibility</groupId>
+    <artifactId>kumuluzee-graphql-federation-compatibility</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>KumuluzEE GraphQL Federation compatibility</name>
+    <description>Implementation of kumuluzee-graphql for compatibility testing with Apollo Federation</description>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- todo RokM update to 5.0.0 upon release -->
+        <kumuluzee.version>5.0.0-SNAPSHOT</kumuluzee.version>
+        <!-- todo RokM update to 2.0.0 upon release -->
+        <kumuluzee-graphql.version>2.0.0-SNAPSHOT</kumuluzee-graphql.version>
+        <!-- todo RokM update to 3.0.0 upon release -->
+        <kumuluzee-config-mp.version>3.0.0-SNAPSHOT</kumuluzee-config-mp.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-bom</artifactId>
+                <version>${kumuluzee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-servlet-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-cdi-weld</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-jpa-eclipselink</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-jta-narayana</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-json-p-jsonp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-json-b-yasson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.config</groupId>
+            <artifactId>kumuluzee-config-mp</artifactId>
+            <version>${kumuluzee-config-mp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.graphql</groupId>
+            <artifactId>kumuluzee-graphql-mp</artifactId>
+            <version>${kumuluzee-graphql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.graphql</groupId>
+            <artifactId>kumuluzee-graphql-ui</artifactId>
+            <version>${kumuluzee-graphql.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <!-- todo RokM remove once smallrye-graphql 2.8.0 in published OR testing of Federation compatibility is finished -->
+            <plugins>
+                <plugin>
+                    <groupId>io.smallrye</groupId>
+                    <artifactId>smallrye-graphql-maven-plugin</artifactId>
+                    <version>2.8.0-SNAPSHOT</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-maven-plugin</artifactId>
+                <version>${kumuluzee.version}</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>smallrye-graphql-maven-plugin</artifactId>
+                <groupId>io.smallrye</groupId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-schema</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <federationEnabled>true</federationEnabled>
+                    <includeScalars>true</includeScalars>
+                    <includeDirectives>true</includeDirectives>
+                    <includeSchemaDefinition>true</includeSchemaDefinition>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

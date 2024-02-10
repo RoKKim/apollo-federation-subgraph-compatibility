@@ -1,0 +1,15 @@
+kumuluzee:
+  server:
+    http:
+      port: 4001
+  graphql:
+    mapping: /
+    federation:
+      enabled: true
+      enabled-federation-batch-resolving: true
+    schema:
+      include-scalars: true
+      include-directives: true
+      include-schema-definition: true
+    ui:
+      enabled: true

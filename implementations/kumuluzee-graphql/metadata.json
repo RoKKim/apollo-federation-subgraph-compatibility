@@ -1,0 +1,21 @@
+{
+  "fullName": "KumuluzEE GraphQL",
+  "language": "Java",
+  "documentation": "https://github.com/kumuluz/kumuluzee-samples/tree/master/kumuluzee-graphql-federation",
+  "type": "Code first",
+  "repository": {
+    "name": "kumuluzee-graphql",
+    "owner": "kumuluz",
+    "link": "https://https://github.com/kumuluz/kumuluzee-graphql"
+  },
+  "coreLibrary": {
+    "name": "GraphQL Java",
+    "link": "https://github.com/graphql-java/graphql-java"
+  },
+  "federationlibrary": {
+    "name": "federation-jvm",
+    "owner": "apollographql",
+    "maintainer": "apollographql",
+    "link": "https://github.com/apollographql/federation-jvm"
+  }
+}
