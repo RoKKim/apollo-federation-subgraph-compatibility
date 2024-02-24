@@ -9,7 +9,8 @@ import org.eclipse.microprofile.graphql.NonNull;
 public record User(
         @Id
         @NonNull
-        @External String email,
+        @External
+        String email,
         @Override(from = "users")
         String name,
         @External
